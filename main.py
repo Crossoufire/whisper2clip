@@ -27,7 +27,8 @@ class WhisperModels(Enum):
 
 class AudioRecorder:
     def __init__(self, model_name=WhisperModels.MEDIUM_EN, hotkey="ctrl+shift+r"):
-        self.output_folder = "output"
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.output_folder = os.path.join(self.script_dir, "output")
         self.hotkey = hotkey
 
         self.is_recording = False
@@ -46,7 +47,7 @@ class AudioRecorder:
 
     def start_recording(self):
         print("*** Start Recording...")
-        winsound.PlaySound("./assets/recording.wav", winsound.SND_FILENAME)
+        winsound.PlaySound(os.path.join(self.script_dir, "./assets/recording.wav"), winsound.SND_FILENAME)
 
         self.is_recording = True
         self.record_thread = threading.Thread(target=self.record_audio)
@@ -101,7 +102,7 @@ class AudioRecorder:
 
         # Add transcription to copy
         pyperclip.copy(transcription)
-        winsound.PlaySound("./assets/clipboard.wav", winsound.SND_FILENAME)
+        winsound.PlaySound(os.path.join(self.script_dir, "./assets/clipboard.wav"), winsound.SND_FILENAME)
 
         print("*** Transcription copied to clipboard")
         print("------------------------------------------------------------------")
