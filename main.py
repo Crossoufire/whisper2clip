@@ -113,9 +113,10 @@ def main():
     os.environ["PATH"] += os.pathsep + r"C:\\ffmpeg\\bin"
 
     hotkey = "ctrl+alt+space"
+    model_name = WhisperModels.MEDIUM_EN
 
     # Load Instance
-    app = AudioRecorder(model_name=WhisperModels.MEDIUM_EN, hotkey=hotkey)
+    app = AudioRecorder(model_name=model_name, hotkey=hotkey)
 
     print(f"*** Waiting for recording ({hotkey})...")
 

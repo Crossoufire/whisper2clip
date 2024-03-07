@@ -1,51 +1,36 @@
 
-# WhisperClip: One-Click Audio Transcription
+# Whisper2Clip: Audio Recording with Transcription
+This Python script allows users to record audio using their microphone and transcribe the recorded audio using 
+the Whisper transcription model. It provides a simple hotkey to start and stop recording using a customizable 
+hotkey combination.
 
-WhisperClip simplifies your life by automatically transcribing audio recordings and saving the text directly to your clipboard. With just a click of a button, you can effortlessly convert spoken words into written text, ready to be pasted wherever you need it. This application harnesses the power of OpenAI's Whisper for free, making transcription more accessible and convenient.
-
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-  - [Prerequisites](#prerequisites)
-  - [Setting Up the Environment](#setting-up-the-environment)
-  - [Choosing the Right Model](#choosing-the-right-model)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Feedback](#feedback)
-- [Acknowledgments](#acknowledgments)
 
 ## Features
+- Start and stop recording using a hotkey combination
+- Transcribe recorded audio using the `Whisper` model from OpenAI (free and offline)
+- Copy the transcription to the clipboard automatically
 
-- Record audio with a simple click.
-- Automatically transcribe audio using Whisper (free).
-- Option to save transcriptions directly to the clipboard.
+
+## Prerequisites
+- Python 3.7, 3.8, 3.9
+- CUDA is highly recommended for performance
+
 
 ## Installation
-
-### Prerequisites
-
-- Python 3.8 or higher
-- [CUDA](https://developer.nvidia.com/cuda-downloads) is highly recommended for better performance but not necessary. WhisperClip can also run on a CPU.
-
-### Setting Up the Environment
-
-1. Clone the repository:
+1. Install `PyTorch` for python. Refer to the [PyTorch's website](https://pytorch.org/get-started/locally/) for details
+2. Clone this repository and install the requirements
    ```
-   git clone https://github.com/gustavostz/whisper-clip.git
-   cd whisper-clip
-   ```
-
-2. Install PyTorch if you don't have it already. Refer to [PyTorch's website](https://pytorch.org/get-started/locally/) for installation instructions.
-
-3. Install the required dependencies:
-   ```
+   git clone https://github.com/Crossoufire/whisper2clip.git
+   cd whisper2clip
    pip install -r requirements.txt
    ```
+3. Install `Ffmpeg` and add it to the PATH (necessary for the Whisper model)
 
-### Choosing the Right Model
 
-Based on your GPU's VRAM, choose the appropriate Whisper model for optimal performance. Below is a table of available models with their required VRAM and relative speed:
+### First Start - Choosing A Whisper Model
+- When executing this script for the first time will download the chosen Whisper model (`default: medium.en` about `1.4Gb`)
+- Based on your GPU VRAM, choose the appropriate Whisper model for optimal performance
+- Below is a table of available models with their required VRAM and relative speed
 
 |  Size  | Required VRAM | Relative speed |
 |:------:|:-------------:|:--------------:|
@@ -55,30 +40,24 @@ Based on your GPU's VRAM, choose the appropriate Whisper model for optimal perfo
 | medium |     ~5 GB     |      ~2x       |
 | large  |    ~10 GB     |       1x       |
 
-For English-only applications, `.en` models (e.g., `tiny.en`, `base.en`) tend to perform better.
+- For English-only applications, the `.en` models (e.g., `tiny.en`, `base.en`) tend to perform better
+- To change the model, modify these lines in the `main()` function of the `main.py` script
+```
+hotkey = "ctrl+alt+space"
+model_name = WhisperModels.MEDIUM_EN
+```
+- The available `WhisperModels` are the same as presented in the table above as Python Enum.
 
-To change the model, modify the `model_name` variable in `config.json` to the desired model name.
 
 ## Usage
-
-Run the application:
-
+- Run the application
 ```
 python main.py
 ```
+- Enter the hotkey to start recording (default: `ctrl+alt+space`) and again to stop recording
+- Transcription will be automatically copied to your clipboard
 
-- Click the microphone button to start and stop recording.
-- If "Save to Clipboard" is checked, the transcription will be copied to your clipboard automatically.
-
-## Configuration
-
-- The default shortcut for toggling recording is `Alt+Shift+R`. You can modify this in the `config.json` file.
-- You can also change the Whisper model used for transcription in the `config.json` file.
-
-## Feedback
-
-If there's interest in a more user-friendly, executable version of WhisperClip, I'd be happy to consider creating one. Your feedback and suggestions are welcome! Just let me know through the [GitHub issues](https://github.com/gustavostz/whisper-clip/issues).
 
 ## Acknowledgments
-
-This project uses [OpenAI's Whisper](https://github.com/openai/whisper) for audio transcription.
+- This project uses the OpenAI's [Whisper](https://github.com/openai/whisper) model for the audio transcription
+- This project is forked and modified from the original creator [gustavostz](https://github.com/gustavostz/whisper-clip)
